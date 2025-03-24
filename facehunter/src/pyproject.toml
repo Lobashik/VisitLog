@@ -1,0 +1,18 @@
+[project]
+name = "facehunter"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Дмитрий Лобанев",email = "lda2005@yandex.ru"}
+]
+readme = ""
+requires-python = ">=3.12"
+dependencies = [
+    "opencv-python (>=4.11.0.86,<5.0.0.0)",
+    "numpy (>=2.2.4,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
