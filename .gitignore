@@ -2,3 +2,5 @@
 **/__pycache__/
 **/logs/
 **.mp4
+**.jpg
+venv/

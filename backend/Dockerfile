@@ -7,7 +7,7 @@ ENV POETRY_VERSION=2.1.1 \
     POETRY_VIRTUALENVS_CREATE=false \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONPATH="/app/src:${PYTHONPATH}" 
+    PYTHONPATH="/app/src" 
 
 COPY ./src/pyproject.toml ./src/poetry.lock /app/src/
 

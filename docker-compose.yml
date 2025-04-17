@@ -9,7 +9,7 @@ services:
     env_file:
       - /backend/.env
     volumes:
-      - ./backend/src/migrations/versions/:/app/backend/src/migrations/versions/
+      - ./backend/src/cameras/migrations/versions/:/app/backend/src/cameras/migrations/versions/
       - ./backend/logs/:/app/backend/logs/
   
   db:
@@ -20,11 +20,12 @@ services:
     volumes:
       - postgres_data_cameras:/var/lib/postgresql/data
   
-  facehunter:
-    build: ./facehunter/
-    command: sh -c "python main.py"
+  bot:
+    build: ./bot/
+    env_file:
+      - ./bot/.env
     volumes:
-      - ./facehunter/src/facehunter/faces/:/app/src/facehunter/faces/
-      - ./test_video.mp4:/app/src/facehunter/test_video.mp4
+      - ./bot/logs/:/app/logs/
+
 volumes:
   postgres_data_cameras:
