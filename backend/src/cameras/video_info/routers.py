@@ -184,9 +184,6 @@ async def export_attendance(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-router = APIRouter()
-
-
 @router.get("/api/attendance/stats", response_model=AttendanceStatsResponse)
 async def get_attendance_stats(
     filters: AttendanceFilterParams = Depends(),
