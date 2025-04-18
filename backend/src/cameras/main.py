@@ -1,6 +1,7 @@
 import uvicorn
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 # from src.auth.routers import router as auth_router
 from cameras.video_info.routers import router as user_router
@@ -10,6 +11,14 @@ app = FastAPI(
     title="API",
     description="API",
     version="0.0.1",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Настроить под фронт
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 routers = [user_router]

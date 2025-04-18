@@ -13,7 +13,7 @@ logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         handlers=[
-            logging.FileHandler("/logs/recording_log.log", mode='a', encoding='utf-8'),
+            logging.FileHandler("/app/logs/recording_log.log", mode='a', encoding='utf-8'),
             logging.StreamHandler()
         ]
     )
@@ -21,8 +21,6 @@ load_dotenv()
 
 
 RTSP_URL = os.getenv('RTSP_URL')
-SERVICE_ACCOUNT_FILE = 'service_account.json'
-SCOPES = ['https://www.googleapis.com/auth/drive.file']
 RECORD_DURATION = 300
 TIMEZONE = pytz.timezone('Europe/Moscow')
 
@@ -39,17 +37,19 @@ def record_with_ffmpeg(rtsp_url, output_file, duration):
         '-preset', 'ultrafast',
         output_file
     ]
-    subprocess.run(cmd)
+    subprocess.run(cmd, check=True)
 
 
 def job():
     now = datetime.now(TIMEZONE)
     if 9 <= now.hour < 22:
-        filename = f"camera_{now.strftime('%Y%m%d_%H%M%S')}.mp4"
+        filename = f"videos/camera_{now.strftime('%Y%m%d_%H%M%S')}.mp4"
         try:
             record_with_ffmpeg(RTSP_URL, filename, RECORD_DURATION)
         except subprocess.CalledProcessError as e:
             logging.error(f"Ошибка при записи видео: {e}")
+        except Exception as e:
+            logging.error(f"Произошла ошибка: {e}")
     else:
         logging.info("Время для записи видео не наступило")
 

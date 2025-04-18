@@ -9,7 +9,7 @@ services:
     env_file:
       - /backend/.env
     volumes:
-      - ./backend/src/cameras/migrations/versions/:/app/backend/src/cameras/migrations/versions/
+      - ./backend/src/cameras/migrations/versions/:/app/src/cameras/migrations/versions/
       - ./backend/logs/:/app/backend/logs/
   
   db:
@@ -26,6 +26,17 @@ services:
       - ./bot/.env
     volumes:
       - ./bot/logs/:/app/logs/
+  
+  # video_recording:
+  #   build: ./video_recording/
+  #   env_file:
+  #     - ./video_recording/.env
+  #   volumes:
+  #     - ./video_recording/videos/:/app/videos/
+  #     - ./video_recording/logs/:/app/logs/
+  #   command: sh -c "python main.py"
+  #   network_mode: host
+  #   restart: unless-stopped 
 
 volumes:
   postgres_data_cameras:

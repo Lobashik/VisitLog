@@ -1,41 +1,51 @@
-from datetime import datetime
-
-from pydantic import BaseModel, ConfigDict
-
-
-class Room(BaseModel):
-    number: str
+# schemas/attendance.py
+from pydantic import BaseModel
+from datetime import time
+from typing import List
 
 
-class VisitCreate(BaseModel):
-    person_id: int
-    room_number: str
-
-
-class PersonCreate(BaseModel):
-    first_name: str
-    last_name: str
-
-
-class PersonBase(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-    
+class AttendanceItem(BaseModel):
     id: int
-    first_name: str
-    last_name: str
+    userName: str
+    entryTime: str  # ISO 8601
+    exitTime: str   # ISO 8601
+    durationMinutes: int
+
+    class Config:
+        from_attributes = True
 
 
-class VisitBase(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-    
-    time_of_enter: datetime
-    time_of_exit: datetime
-    room_number: Room
+class AttendanceMeta(BaseModel):
+    totalRecords: int
+    totalPages: int
+    currentPage: int
+    uniqueUsers: int
+    averageDuration: float
 
 
-class VisitSchema(VisitBase):    
-    person: PersonBase
+class AttendanceListResponse(BaseModel):
+    data: List[AttendanceItem]
+    meta: AttendanceMeta
 
 
-class Person(PersonBase):
-    visits: list[VisitBase]
+# schemas/attendance_stats.py
+from pydantic import BaseModel
+from typing import List
+
+
+class HourlyDistribution(BaseModel):
+    hour: str  # Формат: HH:mm
+    count: int
+
+
+class PeakHour(BaseModel):
+    hour: str  # Формат: HH:mm
+    count: int
+
+
+class AttendanceStatsResponse(BaseModel):
+    uniqueUsers: int
+    totalVisits: int
+    averageDuration: float
+    peakHour: PeakHour
+    hourlyDistribution: List[HourlyDistribution]
