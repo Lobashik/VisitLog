@@ -1,0 +1,11 @@
+opencv-python
+retina-face
+deepface
+faiss-cpu
+numpy
+pandas
+tensorflow==2.13.0
+keras==2.13.1
+scikit-learn
+matplotlib
+
