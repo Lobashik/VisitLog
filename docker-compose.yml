@@ -7,7 +7,7 @@ services:
     depends_on:
       - db
     env_file:
-      - /backend/.env
+      - ./backend/.env
     volumes:
       - ./backend/src/cameras/migrations/versions/:/app/src/cameras/migrations/versions/
       - ./backend/logs/:/app/backend/logs/
@@ -20,12 +20,19 @@ services:
     volumes:
       - postgres_data_cameras:/var/lib/postgresql/data
   
-  bot:
-    build: ./bot/
-    env_file:
-      - ./bot/.env
+  # bot:
+  #   build: ./bot/
+  #   env_file:
+  #     - ./bot/.env
+  #   volumes:
+  #     - ./bot/logs/:/app/logs/
+
+  frontend:
+    build: ./frontend/
+    ports:
+      - 3000:3000
     volumes:
-      - ./bot/logs/:/app/logs/
+      - ./frontend/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
   
   # video_recording:
   #   build: ./video_recording/
