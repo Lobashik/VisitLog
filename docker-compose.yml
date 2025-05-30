@@ -3,7 +3,7 @@ services:
     build: ./backend/
     ports:
       - 8000:8000
-    command: sh -c "alembic upgrade head && python main.py"
+    command: sh -c "alembic upgrade head && python populate_mock_data.py &&python main.py"
     depends_on:
       - db
     env_file:
