@@ -10,7 +10,7 @@ from alembic import context
 from cameras.config import settings
 from cameras.database import Base
 from cameras.video_info.models import *
-from cameras.auth.models import *
+# from cameras.auth.models import *
 
 
 DATABASE_URL = settings.get_database_url
