@@ -14,3 +14,4 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY ./main.py /app/main.py
 
+# CMD [ "python", "main.py" ]

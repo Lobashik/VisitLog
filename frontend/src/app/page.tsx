@@ -97,7 +97,7 @@ export default function AttendanceMonitoring() {
     if (date) {
       handleSearch();
     }
-  }, [date]);
+  }, [date, handleSearch]);
 
   return (
     <div className="container mx-auto py-10">

@@ -4,8 +4,16 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm i --legacy-peer-deps
+RUN npm --force install 
 
 COPY . .
 
-RUN npm run dev
+RUN npm run build
+
+FROM nginx:1.25-alpine
+
+COPY --from=builder /app/.next /usr/share/nginx/html
+
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+CMD ["nginx", "-g", "daemon off;"]
