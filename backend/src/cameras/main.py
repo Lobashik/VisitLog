@@ -11,6 +11,7 @@ app = FastAPI(
     title="API",
     description="API",
     version="0.0.1",
+    docs_url="/api/docs",
 )
 
 app.add_middleware(

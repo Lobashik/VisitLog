@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { format } from "date-fns";
 import { CalendarIcon, Download, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -36,7 +36,7 @@ export default function AttendanceMonitoring() {
   const [isLoading, setIsLoading] = useState(false);
   const [attendanceData, setAttendanceData] = useState<any[]>([]);
 
-  const handleSearch = async () => {
+  const handleSearch = useCallback(async () => {
     if (!date) return;
 
     setIsLoading(true);
@@ -59,8 +59,8 @@ export default function AttendanceMonitoring() {
     } finally {
       setIsLoading(false);
     }
-  };
-
+  }, [date, timeStart, timeEnd, searchQuery, minDuration, maxDuration]
+)
   const handleExport = async () => {
     if (!date || attendanceData.length === 0) return;
 
@@ -97,7 +97,7 @@ export default function AttendanceMonitoring() {
     if (date) {
       handleSearch();
     }
-  }, [date, handleSearch]);
+  }, [date]);
 
   return (
     <div className="container mx-auto py-10">
